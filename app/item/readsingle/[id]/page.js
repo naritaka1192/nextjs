@@ -1,6 +1,6 @@
 const getSingleItem=async(id)=>{
   console.log(id)
-  const response = await fetch("http://localhost:3000/api/item/readsingle/${id}")
+  const response = await fetch(`http://localhost:3000/api/item/readsingle/${id}`)
   const jsonData= await response.json()
   console.log(jsonData)
 }
