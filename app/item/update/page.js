@@ -1,7 +1,9 @@
 "use client"
 
 import {useState,useEffect} from "react"
+import useAuth from "../../../utils/useAuth"
 
+const loginUserEmail = useAuth()
 
 const UpdateItem = (context) =>{
   const [title,setTitle] = useState("")
@@ -9,6 +11,8 @@ const UpdateItem = (context) =>{
   const [image,setImage] = useState("")
   const [description,setDescription] = useState("")
   const [email,setEmail] = useState("")
+
+  const loginUserEmail = useAuth()
 
   useEffect(()=>{
     const getSingleItem = async(id)=>{
@@ -40,7 +44,7 @@ const UpdateItem = (context) =>{
           price:price,
           image:image,
           description:description,
-          email:"dummy@gmail.com"
+          email:loginUserEmail
         })
       })
       const jsonData = await response.json()
@@ -49,10 +53,10 @@ const UpdateItem = (context) =>{
       alert("アイテム編集失敗")
     }
   }
-
+if(loginUserEmail === email){
   return(
     <div>
-      <h1>アイテム編集</h1>
+      <h1 className="page-title">アイテム編集</h1>
       <form onSubmit={handleSubmit}>
         <input value={title}
           onChange={(e)=>setTitle(e.target.value)}
@@ -82,6 +86,9 @@ const UpdateItem = (context) =>{
       </form>
     </div>
   )
+}else{
+  return <h1>権限がありません</h1>
+}
 }
 
 export default UpdateItem
